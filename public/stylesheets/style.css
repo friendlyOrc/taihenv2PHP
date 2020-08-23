@@ -673,19 +673,19 @@ body {
   background-image: linear-gradient(to top, black, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), linear-gradient(to top, #642025, #642025); }
 
 .cmwl1 {
-  background-image: linear-gradient(to top, #0d0a12, rgba(13, 10, 18, 0), rgba(13, 10, 18, 0)), url("/images/rs/wlbg1.png");
+  background-image: linear-gradient(to top, #0d0a12, rgba(13, 10, 18, 0), rgba(13, 10, 18, 0)), url("../../public/images/rs/wlbg1.png");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center; }
 
 .cmwl2 {
-  background-image: linear-gradient(to top, #0d0a12, rgba(13, 10, 18, 0), rgba(13, 10, 18, 0)), url("/images/rs/wlbg2.png");
+  background-image: linear-gradient(to top, #0d0a12, rgba(13, 10, 18, 0), rgba(13, 10, 18, 0)), url("../../public/images/rs/wlbg2.png");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center; }
 
 .cmwl3 {
-  background-image: linear-gradient(to top, #0d0a12, rgba(13, 10, 18, 0), rgba(13, 10, 18, 0)), url("/images/rs/wlbg3.png");
+  background-image: linear-gradient(to top, #0d0a12, rgba(13, 10, 18, 0), rgba(13, 10, 18, 0)), url("../../public/images/rs/wlbg3.png");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center; }

@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
 
-<script type="text/javascript" src="/javascripts/jquery.visible.js"></script>
+<script type="text/javascript" src="public/javascripts/jquery.visible.js"></script>
 
 <script>
     $(document).ready(function() {

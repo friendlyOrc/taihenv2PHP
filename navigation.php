@@ -11,67 +11,65 @@
         }
     ?>
     
-        <div class="row d-flex justify-content-between">
-            
-            <div class="col-4">
-                <a href="index.php" class="nav__logo">taihen</a>
-            </div>
-            <div class="col-4">
-                <ul class="nav__menu">
-                    <?php
-                        if(isset($_GET['tag']) && $_GET['tag'] == 'all'){
-                    ?>
-                        <li class="nav__menu__item nav--active"><a href="article_list.php?tag=all">Danh sách</a></li>
-                    <?php
-                        }else{
-                    ?>
-                        <li class="nav__menu__item"><a href="article_list.php?tag=all">Danh sách</a></li>
-                    <?php
-                        }
-                    ?>
-                    <li class="nav__menu__item" id="cate">
-                        Thể loại
-                    </li>
-
-                    <?php
-                        if(isset($_GET['tag']) && $_GET['tag'] == 'complete'){
-                    ?>
-                        <li class="nav__menu__item nav--active"><a href="article_list.php?tag=complete">Hoàn tất</a></li>
-                    <?php
-                        }else{
-                    ?>
-                        <li class="nav__menu__item"><a href="article_list.php?tag=complete">Hoàn tất</a></li>
-                    <?php
-                        }
-                    ?>
-                    <?php
-                        if(isset($_GET['tag']) && $_GET['tag'] == 'hot'){
-                    ?>
-                        <li class="nav__menu__item nav--active"><a href="article_list.php?tag=hot">HOT</a></li>
-                    <?php
-                        }else{
-                    ?>
-                        <li class="nav__menu__item"><a href="article_list.php?tag=hot">HOT</a></li>
-                    <?php
-                        }
-                    ?>
-                    
-                </ul>
-            </div>
-            <div class="col-3" style="text-align: right; padding: 0 !important;">
-                <form action="/search" method="POST" class="nav__search d-flex justify-content-between">
-                    <input type="text" class="nav__search__input" placeholder="Tìm kiếm" name="search">
-                    <button class="nav__search__button" type="submit"><i class="fas fa-search"></i></button>
-                </form>
-                <div class="nav__search__right">
-                    <button class="" onclick="openSearchFull()"><i class="fas fa-search"></i></button>
-                </div>
-            </div>
-            <div class="nav__hambutton">
-                <button class="nav__hambutton__button"><i class="fas fa-bars"></i></button>
-            </div>
-            
+    <div class="row d-flex justify-content-between">    
+        <div class="col-4">
+            <a href="index.php" class="nav__logo">taihen</a>
         </div>
+        <div class="col-4">
+            <ul class="nav__menu">
+                <?php
+                    if(isset($_GET['tag']) && $_GET['tag'] == 'all'){
+                ?>
+                    <li class="nav__menu__item nav--active"><a href="article_list.php?tag=all">Danh sách</a></li>
+                <?php
+                    }else{
+                ?>
+                    <li class="nav__menu__item"><a href="article_list.php?tag=all">Danh sách</a></li>
+                <?php
+                    }
+                ?>
+                <li class="nav__menu__item" id="cate">
+                    Thể loại
+                </li>
+
+                <?php
+                    if(isset($_GET['tag']) && $_GET['tag'] == 'complete'){
+                ?>
+                    <li class="nav__menu__item nav--active"><a href="article_list.php?tag=complete">Hoàn tất</a></li>
+                <?php
+                    }else{
+                ?>
+                    <li class="nav__menu__item"><a href="article_list.php?tag=complete">Hoàn tất</a></li>
+                <?php
+                    }
+                ?>
+                <?php
+                    if(isset($_GET['tag']) && $_GET['tag'] == 'hot'){
+                ?>
+                    <li class="nav__menu__item nav--active"><a href="article_list.php?tag=hot">HOT</a></li>
+                <?php
+                    }else{
+                ?>
+                    <li class="nav__menu__item"><a href="article_list.php?tag=hot">HOT</a></li>
+                <?php
+                    }
+                ?>
+            </ul>
+        </div>
+        <div class="col-3" style="text-align: right; padding: 0 !important;">
+            <form action="/search" method="POST" class="nav__search d-flex justify-content-between">
+                <input type="text" class="nav__search__input" placeholder="Tìm kiếm" name="search">
+                <button class="nav__search__button" type="submit"><i class="fas fa-search"></i></button>
+            </form>
+            <div class="nav__search__right">
+                <button class="" onclick="openSearchFull()"><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+        <div class="nav__hambutton">
+            <button class="nav__hambutton__button"><i class="fas fa-bars"></i></button>
+        </div>
+        
+    </div>
 
     </div>
     <div class="nav__search__mobile block--disable">
@@ -86,16 +84,16 @@
                 <div class="col">
                     <div class="category__list">
                         <?php
-                            $num = mysqli_num_rows($_DATA['category']);
+                            $num = count($_DATA['category']);
                             $each = round($num/8);
                             
                             for($j = 0; $j < 8; $j++){?>
                                 <ul class="category__list__col">
-                                    <?php for($i = $each*$j; $i < $row - $each*(8 - $j - 1); $i++){
-                                        $cat = mysqli_fetch_array($_DATA['category']);
+                                    <?php for($i = $each*$j; $i < $num - $each*(8 - $j - 1); $i++){
+                                        $cat = $_DATA['category'][$i];
                                         ?>
-                                        <li class="category__list__col__item" title="<%= sess.category[i].cat_des%>"><a href="/article_list/<%= sess.category[i].cat_ID%>"><?php echo $cat['cat_name'];?></a></li>
-                                    <?php}?>
+                                        <li class="category__list__col__item" title=""><a href="article_list.php?tag=<?php echo $cat['cat_ID'];?>"><?php echo $cat['cat_name'];?></a></li>
+                                    <?php }?>
                                 </ul>
                         <?php }?>
                         
@@ -141,16 +139,16 @@
         <div class="col-12">
             <ul class="nav--full__menu">
                 <li class="nav--full__menu__item">
-                    <a href="/article_list/0">Danh sách</a>
+                    <a href="article_list.php?tag=all">Danh sách</a>
                 </li>
                 <li class="nav--full__menu__item" id="cate__mobile">
                     Thể loại
                 </li>
                 <li class="nav--full__menu__item">
-                    <a href="/article_list/complete">Hoàn tất</a>
+                    <a href="article_list.php?tag=complete">Hoàn tất</a>
                 </li>
                 <li class="nav--full__menu__item">
-                    <a href="/article_list/hot">HOT</a>
+                    <a href="article_list.php?tag=hot">HOT</a>
                 </li>
                 <li class="nav--full__menu__item">
                     <button onclick="openNavFull()"><i class="fas fa-arrow-left"></i></button>
@@ -164,14 +162,17 @@
                 <div class="col" style="padding: 0 !important;">
                     <i class="fas fa-arrow-left" id="cate__backbtn"></i>
                     <div class="categoryfull__list">
-                        <% let row2 = Math.round(sess.category.length/3)%>
-                        <% for(let j = 0; j < 3; j++){%>
+                        <?php $mRow = round($num/3);
+                            for($j = 0; $j < 3; $j++){?>
+
                             <ul class="categoryfull__list__col">
-                                <% for(let i = row2*j; i < sess.category.length - row2*(3 - j - 1); i++){%>
-                                    <li class="categoryfull__list__col__item" title="<%= sess.category[i].cat_des%>"><a href="/article_list/<%= sess.category[i].cat_ID%>"><%= sess.category[i].cat_name%></a></li>
-                                <%}%>
+                                <?php for($i = $mRow*$j; $i < $num - $mRow*(3 - $j - 1); $i++){
+                                    $cat = $_DATA['category'][$i];
+                                    ?>
+                                    <li class="categoryfull__list__col__item" title="<?php echo $cat['cat_name'];?>"><a href="article_list?cat_ID=<?php echo $cat['cat_ID'];?>"><?php echo $cat['cat_name'];?></a></li>
+                                <?php }?>
                             </ul>
-                        <%}%>
+                        <?php }?>
                         
                     </div>
                 </div>

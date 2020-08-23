@@ -2,61 +2,63 @@
     if(!isset($connect)){
         include_once('admin/config/connection.php');
     }
-    $_DATA['articles'] = mysqli_query($connect, 'SELECT * FROM article ORDER BY article.ar_ID DESC');
-    while($row = mysqli_fetch_array($_DATA['articles'])){
-        $_DATA['cate'][$row['ar_ID']] = mysqli_query($connect, 'SELECT * FROM ar_cat INNER JOIN category ON category.cat_ID = ar_cat.cat_ID WHERE ar_cat.ar_ID = '.$row['ar_ID']);
-        $_DATA['chapters'][$row['ar_ID']] = mysqli_query($connect, 'SELECT * from chapter WHERE chapter.ar_ID = '.$row['ar_ID'].' ORDER BY chapter.chap_ID DESC');
+    $_DATA['articles'] = Array();
+    $raw = mysqli_query($connect, 'SELECT * FROM article ORDER BY article.ar_ID DESC');
+    while($row = mysqli_fetch_array($raw)){
+        $_DATA['articles'][] = $row;
     }
-    $_DATA['articles'] = mysqli_query($connect, 'SELECT * FROM article ORDER BY article.ar_ID DESC');
+
+    foreach($_DATA['articles'] as $ar){
+        $raw1 = mysqli_query($connect, 'SELECT * FROM ar_cat INNER JOIN category ON category.cat_ID = ar_cat.cat_ID WHERE ar_cat.ar_ID = '.$ar['ar_ID']);
+        $_DATA['cate'][$ar['ar_ID']] = mysqli_fetch_array($raw1);
+        $_DATA['chapters'][$ar['ar_ID']] = mysqli_query($connect, 'SELECT * from chapter WHERE chapter.ar_ID = '.$ar['ar_ID'].' ORDER BY chapter.chap_ID DESC');
+    }
     
-    $_DATA['category'] = mysqli_query($connect, "SELECT * FROM category");
-    $_DATA['user'] = mysqli_query($connect, "SELECT * FROM account");
-    $_DATA['view'] = mysqli_query($connect, "SELECT * FROM count_view");
-    $_DATA['random_pic'] = mysqli_query($connect, "SELECT * FROM pic");
-    $_DATA['comment'] = mysqli_query($connect, 'SELECT * FROM comment INNER JOIN article ON comment.ar_ID = article.ar_ID');
+    $_DATA['category'] = Array();
+    $raw = mysqli_query($connect, "SELECT * FROM category");
+    while($row = mysqli_fetch_array($raw)){
+        $_DATA['category'][] = $row;
+    }
+    $_DATA['user'] = Array();
+    $raw = mysqli_query($connect, "SELECT * FROM account");
+    while($row = mysqli_fetch_array($raw)){
+        $_DATA['user'][] = $row;
+    }
+    $_DATA['view'] = Array();
+    $raw = mysqli_query($connect, "SELECT * FROM count_view");
+    while($row = mysqli_fetch_array($raw)){
+        $_DATA['view'][] = $row;
+    }
+    $_DATA['random_pic'] = Array();
+    $raw = mysqli_query($connect, "SELECT * FROM pic");
+    while($row = mysqli_fetch_array($raw)){
+        $_DATA['random_pic'][] = $row;
+    }
+    // $_DATA['comment'] = Array();
+    // $raw = mysqli_query($connect, 'SELECT * FROM comment INNER JOIN article ON comment.ar_ID = article.ar_ID');
+    // while($row = mysqli_fetch_array($raw)){
+    //     $_DATA['comment'][] = $row;
+    // }
+    $_DATA['hot_articles'] = Array();
+    $raw = mysqli_query($connect, 'SELECT * FROM article ORDER BY article.ar_view DESC LIMIT 6');
+    while($row = mysqli_fetch_array($raw)){
+        $_DATA['hot_articles'][] = $row;
+    }
+    $_DATA['hot_chapter'] = Array();
+    foreach($_DATA['hot_articles'] as $ar){
+        $query3 = "SELECT * from chapter WHERE chapter.ar_ID = ".$ar['ar_ID']." ORDER BY chapter.chap_ID DESC LIMIT 1";
+        $_DATA['hot_chapter'][] =  mysqli_fetch_array(mysqli_query($connect, $query3));
+    }
 
-    // sess.articles = await query('SELECT * FROM article ORDER BY article.ar_ID DESC');
-    // sess.cate = [];
-    // sess.chapters = [];
-    // for(let i = 0; i < sess.articles.length; i++){
-    //   let query2 = "SELECT * FROM ar_cat INNER JOIN category ON category.cat_ID = ar_cat.cat_ID WHERE ar_cat.ar_ID = ? ";
-    //   sess.cate[i] = await query(query2, sess.articles[i].ar_ID);
-    //   let query3 = "SELECT * from chapter WHERE chapter.ar_ID = ? ORDER BY chapter.chap_ID DESC";
-    //   sess.chapters[i] = await query(query3, sess.articles[i].ar_ID) || [];
-    // }
-    // sess.category = await query("SELECT * FROM category");
-    // sess.account = await query("SELECT * FROM account");
-    // sess.view = await query("SELECT * FROM count_view");
+    $_DATA['top_articles'] = Array();
+    $raw = mysqli_query($connect, "SELECT count_view.ar_ID, article.ar_name, article.ar_date, article.ar_pic, COUNT(count_view.ar_ID) as num FROM count_view INNER JOIN article ON count_view.ar_ID = article.ar_ID GROUP BY count_view.ar_ID ORDER BY num DESC LIMIT 12;");
+    while($row = mysqli_fetch_array($raw)){
+        $_DATA['top_articles'][] = $row;
+    }
+    $_DATA['top_chapter'] = Array();
+    foreach($_DATA['top_articles'] as $ar){
+        $query3 = "SELECT * from chapter WHERE chapter.ar_ID = ".$ar['ar_ID']." ORDER BY chapter.chap_ID DESC LIMIT 1";
+        $_DATA['top_chapter'][] =  mysqli_fetch_array(mysqli_query($connect, $query3));
+    }
 
-
-    // $ar_data = mysqli_query($connect, 'SELECT * FROM article ORDER BY article.ar_ID DESC');
-    // $i = 0;
-    // while($row = mysqli_fetch_array($ar_data)){
-    //     $_SESSION['articles'][$i] = $row;
-    //     $i++;
-    // }
-    // $cate_data = mysqli_query($connect, 'SELECT * FROM category');
-    // $i = 0;
-    // while($row = mysqli_fetch_array($cate_data)){
-    //     $_SESSION['category'][$i] = $row;
-    //     $i++;
-    // }
-    // $acc_data = mysqli_query($connect,"SELECT * FROM account");
-    // $i = 0;
-    // while($row = mysqli_fetch_array($acc_data)){
-    //     $_SESSION['account'][$i] = $row;
-    //     $i++;
-    // }
-    // $view_data = mysqli_query($connect, "SELECT * FROM count_view");
-    // $i = 0;
-    // while($row = mysqli_fetch_array($view_data)){
-    //     $_SESSION['view'][$i] = $row;
-    //     $i++;
-    // }
-    // $_data = mysqli_query($connect,);
-    // $i = 0;
-    // while($row = mysqli_fetch_array($_data)){
-    //     $_SESSION[''][$i] = $row;
-    //     $i++;
-    // }
 ?>

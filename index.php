@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-      <title><%= title%></title>
+      <title>Taihen</title>
       <?php 
         include_once('head.php')
       ?>
@@ -56,23 +56,24 @@
                                     
                                     <div class="weekly__slider__wrapper">
                                         <div class="weekly__slider">
-                                          <% for(let i = 0; i < 2; i++){%>
+                                          <?php
+                                          for($i = 0; $i < 2; $i++){?>
                                             <div class="weekly__slider__item">
                                                 <div class="weekly__slider__item__img">
-                                                    <a href="/article/<%= sess.hot_articles[i].ar_ID%>" title="<%= sess.hot_articles[i].ar_name%>"><img src="/images/article/<%= sess.hot_articles[i].ar_pic%>" alt="" ></a>
+                                                    <a href="article.php?ar_ID=<?php echo $_DATA['hot_articles'][$i]['ar_ID']; ?>" title="<?php echo $_DATA['hot_articles'][$i]['ar_name']; ?>"><img src="public/images/article/<?php echo $_DATA['hot_articles'][$i]['ar_pic'];?>" alt="" ></a>
                                                 </div>
                                                 
                                                 <div class="weekly__slider__item__inf">
                                                   <table class="weekly__slider__item__inf__tbl">
                                                     <tr class="weekly__slider__item__inf__tbl__title">
                                                       <td>
-                                                        <a href="/article/<%= sess.hot_articles[i].ar_ID%>" title="<%= sess.hot_articles[i].ar_name%>">
+                                                        <a href="article.php?ar_ID=<?php echo $_DATA['hot_articles'][$i]['ar_ID']; ?>" title="article.php?ar_ID=<?php echo $_DATA['hot_articles'][$i]['ar_name']; ?>">
                                                           <h4 class="weekly__slider__item__inf__title">
-                                                            <% if(sess.hot_articles[i].ar_name.length > 34){%>
-                                                              <%= sess.hot_articles[i].ar_name.substring(0, 34)%>...
-                                                            <%}else{%>
-                                                              <%= sess.hot_articles[i].ar_name%>      
-                                                            <%}%>  
+                                                            <?php if(strlen($_DATA['hot_articles'][$i]['ar_name']) > 34){?>
+                                                              <?php echo substr($_DATA['hot_articles'][$i]['ar_name'], 0, 34);?>...
+                                                            <?php }else{?>
+                                                              <?php echo $_DATA['hot_articles'][$i]['ar_name'];?>      
+                                                            <?php }?>  
                                                             <br>
                                                               
                                                           </h4>
@@ -89,17 +90,17 @@
                                                     <tr class="weekly__slider__item__inf__tbl__des"> 
                                                       <td>
                                                         <p class="weekly__slider__item__inf__des">
-                                                          <% if(sess.hot_articles[i].ar_des.length > 150){%>
-                                                            <%= sess.hot_articles[i].ar_des.substring(0, 150)%>...
-                                                          <%}else{%>
-                                                            <%= sess.hot_articles[i].ar_des%>      
-                                                          <%}%>  
+                                                        <?php if(strlen($_DATA['hot_articles'][$i]['ar_des']) > 150){?>
+                                                              <?php echo substr($_DATA['hot_articles'][$i]['ar_des'], 0, 150);?>...
+                                                            <?php }else{?>
+                                                              <?php echo $_DATA['hot_articles'][$i]['ar_des'];?>      
+                                                            <?php }?>   
                                                         </p>
                                                       </td>
                                                     </tr>
                                                     <tr class="weekly__slider__item__inf__tbl__btn" style="position: relative;">
                                                       <td>
-                                                        <a href="/chapter/<%= sess.hot_articles[i].ar_ID%>-1" class="weekly__slider__item__inf__btn"><span>ĐỌC NGAY</span></a>
+                                                        <a href="chapter.php?article.php?ar_ID=<?php echo $_DATA['hot_articles'][$i]['ar_ID']; ?>&chap_ID=1" class="weekly__slider__item__inf__btn"><span>ĐỌC NGAY</span></a>
                                                       </td>
                                                       
                                                     </tr>
@@ -107,7 +108,7 @@
                                                     
                                                 </div>
                                             </div>
-                                          <%}%>
+                                          <?php }?>
                                         </div>
                                     </div>
 
@@ -125,60 +126,59 @@
                                   
                                   <div class="weekly__slider__wrapper">
                                     <div class="weekly__slider">
-                                      <% for(let i = 2; i < 4; i++){%>
-                                        <div class="weekly__slider__item">
-                                            <div class="weekly__slider__item__img">
-                                                <a href="/article/<%= sess.hot_articles[i].ar_ID%>" title="<%= sess.hot_articles[i].ar_name%>"><img src="/images/article/<%= sess.hot_articles[i].ar_pic%>" alt="" ></a>
+                                    <?php
+                                          for($i = 2; $i < 4; $i++){?>
+                                            <div class="weekly__slider__item">
+                                                <div class="weekly__slider__item__img">
+                                                    <a href="article.php?ar_ID=<?php echo $_DATA['hot_articles'][$i]['ar_ID']; ?>" title="<?php echo $_DATA['hot_articles'][$i]['ar_name']; ?>"><img src="public/images/article/<?php echo $_DATA['hot_articles'][$i]['ar_pic'];?>" alt="" ></a>
+                                                </div>
+                                                
+                                                <div class="weekly__slider__item__inf">
+                                                  <table class="weekly__slider__item__inf__tbl">
+                                                    <tr class="weekly__slider__item__inf__tbl__title">
+                                                      <td>
+                                                        <a href="article.php?ar_ID=<?php echo $_DATA['hot_articles'][$i]['ar_ID']; ?>" title="article.php?ar_ID=<?php echo $_DATA['hot_articles'][$i]['ar_name']; ?>">
+                                                          <h4 class="weekly__slider__item__inf__title">
+                                                            <?php if(strlen($_DATA['hot_articles'][$i]['ar_name']) > 34){?>
+                                                              <?php echo substr($_DATA['hot_articles'][$i]['ar_name'], 0, 34);?>...
+                                                            <?php }else{?>
+                                                              <?php echo $_DATA['hot_articles'][$i]['ar_name'];?>      
+                                                            <?php }?>  
+                                                            <br>
+                                                              
+                                                          </h4>
+                                                        </a>
+                                                      </td>
+                                                    </tr>
+                                                    <tr class="weekly__slider__item__inf__tbl__hot">
+                                                      <td>
+                                                        <div class="weekly__slider__item__inf__badge">
+                                                          HOT
+                                                        </div>
+                                                      </td>
+                                                    </tr>
+                                                    <tr class="weekly__slider__item__inf__tbl__des"> 
+                                                      <td>
+                                                        <p class="weekly__slider__item__inf__des">
+                                                        <?php if(strlen($_DATA['hot_articles'][$i]['ar_des']) > 150){?>
+                                                              <?php echo substr($_DATA['hot_articles'][$i]['ar_des'], 0, 150);?>...
+                                                            <?php }else{?>
+                                                              <?php echo $_DATA['hot_articles'][$i]['ar_des'];?>      
+                                                            <?php }?>   
+                                                        </p>
+                                                      </td>
+                                                    </tr>
+                                                    <tr class="weekly__slider__item__inf__tbl__btn" style="position: relative;">
+                                                      <td>
+                                                        <a href="chapter.php?article.php?ar_ID=<?php echo $_DATA['hot_articles'][$i]['ar_ID']; ?>&chap_ID=1" class="weekly__slider__item__inf__btn"><span>ĐỌC NGAY</span></a>
+                                                      </td>
+                                                      
+                                                    </tr>
+                                                  </table>
+                                                    
+                                                </div>
                                             </div>
-                                            
-                                            <div class="weekly__slider__item__inf">
-                                              <table class="weekly__slider__item__inf__tbl">
-                                                <tr class="weekly__slider__item__inf__tbl__title">
-                                                  <td>
-                                                    <a href="/article/<%= sess.hot_articles[i].ar_ID%>" title="<%= sess.hot_articles[i].ar_name%>">
-                                                      <h4 class="weekly__slider__item__inf__title">
-                                                        <% if(sess.hot_articles[i].ar_name.length > 34){%>
-                                                          <%= sess.hot_articles[i].ar_name.substring(0, 34)%>...
-                                                        <%}else{%>
-                                                          <%= sess.hot_articles[i].ar_name%>      
-                                                        <%}%>  
-                                                        <br>
-                                                          
-                                                      </h4>
-                                                    </a>
-                                                  </td>
-                                                </tr>
-                                                <tr class="weekly__slider__item__inf__tbl__hot">
-                                                  <td>
-                                                    <div class="weekly__slider__item__inf__badge">
-                                                      HOT
-                                                    </div>
-                                                  </td>
-                                                </tr>
-                                                <tr class="weekly__slider__item__inf__tbl__des"> 
-                                                  <td>
-                                                    <p class="weekly__slider__item__inf__des">
-                                                      <% if(sess.hot_articles[i].ar_des.length > 150){%>
-                                                        <%= sess.hot_articles[i].ar_des.substring(0, 150)%>...
-                                                      <%}else{%>
-                                                        <%= sess.hot_articles[i].ar_des%>      
-                                                      <%}%>  
-                                                    </p>
-                                                  </td>
-                                                </tr>
-                                                <tr class="weekly__slider__item__inf__tbl__btn" style="position: relative;">
-                                                  <td>
-                                                    <a href="/chapter/<%= sess.hot_articles[i].ar_ID%>-1" class="weekly__slider__item__inf__btn"><span>ĐỌC NGAY</span></a>
-                                                  </td>
-                                                  
-                                                </tr>
-                                              </table>
-                                                
-                                                
-                                                
-                                            </div>
-                                        </div>
-                                      <%}%>
+                                          <?php }?>
                                     </div>
                                   </div>
 
@@ -196,60 +196,59 @@
                                     
                                   <div class="weekly__slider__wrapper">
                                       <div class="weekly__slider">
-                                        <% for(let i = 4; i < 6; i++){%>
-                                          <div class="weekly__slider__item">
-                                              <div class="weekly__slider__item__img">
-                                                  <a href="/article/<%= sess.hot_articles[i].ar_ID%>" title="<%= sess.hot_articles[i].ar_name%>"><img src="/images/article/<%= sess.hot_articles[i].ar_pic%>" alt="" ></a>
-                                              </div>
-                                              
-                                              <div class="weekly__slider__item__inf">
-                                                <table class="weekly__slider__item__inf__tbl">
-                                                  <tr class="weekly__slider__item__inf__tbl__title">
-                                                    <td>
-                                                      <a href="/article/<%= sess.hot_articles[i].ar_ID%>" title="<%= sess.hot_articles[i].ar_name%>">
-                                                        <h4 class="weekly__slider__item__inf__title">
-                                                          <% if(sess.hot_articles[i].ar_name.length > 34){%>
-                                                            <%= sess.hot_articles[i].ar_name.substring(0, 34)%>...
-                                                          <%}else{%>
-                                                            <%= sess.hot_articles[i].ar_name%>      
-                                                          <%}%>  
-                                                          <br>
-                                                            
-                                                        </h4>
-                                                      </a>
-                                                    </td>
-                                                  </tr>
-                                                  <tr class="weekly__slider__item__inf__tbl__hot">
-                                                    <td>
-                                                      <div class="weekly__slider__item__inf__badge">
-                                                        HOT
-                                                      </div>
-                                                    </td>
-                                                  </tr>
-                                                  <tr class="weekly__slider__item__inf__tbl__des"> 
-                                                    <td>
-                                                      <p class="weekly__slider__item__inf__des">
-                                                        <% if(sess.hot_articles[i].ar_des.length > 150){%>
-                                                          <%= sess.hot_articles[i].ar_des.substring(0, 150)%>...
-                                                        <%}else{%>
-                                                          <%= sess.hot_articles[i].ar_des%>      
-                                                        <%}%>  
-                                                      </p>
-                                                    </td>
-                                                  </tr>
-                                                  <tr class="weekly__slider__item__inf__tbl__btn" style="position: relative;">
-                                                    <td>
-                                                      <a href="/chapter/<%= sess.hot_articles[i].ar_ID%>-1" class="weekly__slider__item__inf__btn"><span>ĐỌC NGAY</span></a>
-                                                    </td>
+                                      <?php
+                                          for($i = 4; $i < 6; $i++){?>
+                                            <div class="weekly__slider__item">
+                                                <div class="weekly__slider__item__img">
+                                                    <a href="article.php?ar_ID=<?php echo $_DATA['hot_articles'][$i]['ar_ID']; ?>" title="<?php echo $_DATA['hot_articles'][$i]['ar_name']; ?>"><img src="public/images/article/<?php echo $_DATA['hot_articles'][$i]['ar_pic'];?>" alt="" ></a>
+                                                </div>
+                                                
+                                                <div class="weekly__slider__item__inf">
+                                                  <table class="weekly__slider__item__inf__tbl">
+                                                    <tr class="weekly__slider__item__inf__tbl__title">
+                                                      <td>
+                                                        <a href="article.php?ar_ID=<?php echo $_DATA['hot_articles'][$i]['ar_ID']; ?>" title="article.php?ar_ID=<?php echo $_DATA['hot_articles'][$i]['ar_name']; ?>">
+                                                          <h4 class="weekly__slider__item__inf__title">
+                                                            <?php if(strlen($_DATA['hot_articles'][$i]['ar_name']) > 34){?>
+                                                              <?php echo substr($_DATA['hot_articles'][$i]['ar_name'], 0, 34);?>...
+                                                            <?php }else{?>
+                                                              <?php echo $_DATA['hot_articles'][$i]['ar_name'];?>      
+                                                            <?php }?>  
+                                                            <br>
+                                                              
+                                                          </h4>
+                                                        </a>
+                                                      </td>
+                                                    </tr>
+                                                    <tr class="weekly__slider__item__inf__tbl__hot">
+                                                      <td>
+                                                        <div class="weekly__slider__item__inf__badge">
+                                                          HOT
+                                                        </div>
+                                                      </td>
+                                                    </tr>
+                                                    <tr class="weekly__slider__item__inf__tbl__des"> 
+                                                      <td>
+                                                        <p class="weekly__slider__item__inf__des">
+                                                        <?php if(strlen($_DATA['hot_articles'][$i]['ar_des']) > 150){?>
+                                                              <?php echo substr($_DATA['hot_articles'][$i]['ar_des'], 0, 150);?>...
+                                                            <?php }else{?>
+                                                              <?php echo $_DATA['hot_articles'][$i]['ar_des'];?>      
+                                                            <?php }?>   
+                                                        </p>
+                                                      </td>
+                                                    </tr>
+                                                    <tr class="weekly__slider__item__inf__tbl__btn" style="position: relative;">
+                                                      <td>
+                                                        <a href="chapter.php?article.php?ar_ID=<?php echo $_DATA['hot_articles'][$i]['ar_ID']; ?>&chap_ID=1" class="weekly__slider__item__inf__btn"><span>ĐỌC NGAY</span></a>
+                                                      </td>
+                                                      
+                                                    </tr>
+                                                  </table>
                                                     
-                                                  </tr>
-                                                </table>
-                                                  
-                                                  
-                                                  
-                                              </div>
-                                          </div>
-                                        <%}%>
+                                                </div>
+                                            </div>
+                                          <?php }?>
                                       </div>
                                   </div>
                                 </div>
@@ -284,13 +283,13 @@
 
           <div class="carousel__mobile__item__inf">
               <div class="carousel__mobile__item__inf__title">
-                  <a href="/article/<%= sess.hot_articles[0].ar_ID%>" title="<%= sess.hot_articles[0].ar_name%>">
+                  <a href="article.php?ar_ID=<?php echo $_DATA['hot_articles'][$i]['ar_ID']; ?>" title="<?php echo $_DATA['hot_articles'][$i]['ar_name']; ?>">
                     <h4 class="carousel__mobile__item__inf__title">
-                      <% if(sess.hot_articles[0].ar_name.length > 34){%>
-                        <%= sess.hot_articles[0].ar_name.substring(0, 34)%>...
-                      <%}else{%>
-                        <%= sess.hot_articles[0].ar_name%>      
-                      <%}%>  
+                    <?php if(strlen($_DATA['hot_articles'][$i]['ar_name']) > 34){?>
+                          <?php echo substr($_DATA['hot_articles'][$i]['ar_name'], 0, 34);?>...
+                        <?php }else{?>
+                          <?php echo $_DATA['hot_articles'][$i]['ar_name'];?>      
+                        <?php }?>  
                       <br>
                         
                     </h4>
@@ -299,7 +298,7 @@
               <div class="carousel__mobile__item__inf__badge">
                 HOT
               </div>
-              <a href="/chapter/<%= sess.hot_articles[0].ar_ID%>-1" class="carousel__mobile__item__inf__btn"><span>ĐỌC NGAY</span></a>
+              <a href="chapter.php?ar_ID=<?php echo $_DATA['hot_articles'][$i]['ar_ID']; ?>&chap_ID=1" class="carousel__mobile__item__inf__btn"><span>ĐỌC NGAY</span></a>
           </div>
 
           <div class="carousel__mobile__subtitle">
@@ -310,14 +309,12 @@
           </div>
 
           <div id="owl__bow" class="owl-carousel BOW">
-            <%for(i = 0; i < sess.hot_articles.length; i++){%>
+            <?php foreach($_DATA['hot_articles'] as $ar){?>
               <div class="BOW__item">
-                <a href="/article/<%= sess.hot_articles[i].ar_ID%>" title="<%= sess.hot_articles[i].ar_name%>"><img src="/images/article/<%= sess.hot_articles[i].ar_pic%>" alt="" ></a>
+                <a href="article.php?ar_ID=<?php echo $_DATA['hot_articles'][$i]['ar_ID']; ?>" title="<?php echo $_DATA['hot_articles'][$i]['ar_name']; ?>"><img src="public/images/article/<?php echo $_DATA['hot_articles'][$i]['ar_pic']; ?>" alt="" ></a>
               </div>
-            <%}%>
+            <?php }?>
           </div>
-
-
         </div>
 
         <div class="top__new__wrapper">
@@ -325,27 +322,34 @@
             <h6>TOP View:</h6>
               <div id="topviewtab2">
                 <div id="owl__topview__mobile" class="owl-carousel topview__slider">
-                  <%for(let i = 0; i < ((sess.top_articles.length >= 12)? 12 : sess.top_articles.length); i++){%>
-                    <a href="/article/<%= sess.top_articles[i].ar_ID%>" class="topview__slider__item">
+                  <?php 
+                    $limit = 12;
+                    if(count($_DATA['top_articles']) < 12){
+                      $limit = count($_DATA['top_articles']);
+                    }
+                    for($i = 0; $i < $limit; $i++){?>
+                    <a href="article.php?ar_ID=<?php echo $_DATA['hot_articles'][$i]['ar_ID']; ?>" class="topview__slider__item">
                         <div class="topview__slider__item__img">
-                            <img src="/images/article/<%= sess.top_articles[i].ar_pic%>" alt="" >
+                            <img src="public/images/article/<?php echo $_DATA['hot_articles'][$i]['ar_pic']; ?>" alt="" >
                         </div>
                         
                         <div class="topview__slider__item__inf">
                             <h3 class="topview__slider__item__inf__title">
-                              <% if(sess.top_articles[i].ar_name.length > 10){%>
-                                <%= sess.top_articles[i].ar_name.substring(0, 10)%>...
-                              <%}else{%>
-                                <%= sess.top_articles[i].ar_name%>      
-                              <%}%>     
+                            <?php if(strlen($_DATA['top_articles'][$i]['ar_name']) > 10){?>
+                                <?php echo substr($_DATA['top_articles'][$i]['ar_name'], 0, 10);?>...
+                              <?php }else{?>
+                                <?php echo $_DATA['top_articles'][$i]['ar_name'];?>      
+                              <?php }?>      
                             </h3>
                             <p class="topview__slider__item__inf__time">
-                              <% let arr = sess.top_articles[i].ar_date.split('-')%>
-                              <%= arr[2] + "-" + arr[1] + "-" + arr[0]%>
+                              <?php 
+                                list($month, $day, $year) = split('[/.-]', $_DATA['top_articles'][$i]['ar_date']);
+                                echo "$day - $month - $year";  
+                              ?>
                             </p>
                         </div>
                     </a>
-                    <%}%>
+                    <?php }?>
                 </div>
             </div>
           </div>
@@ -519,13 +523,13 @@
             </div>
 
             <!-- FOOTER  -->
-            <%include footer%>
+            <?php include_once('footer') ?>
         </div>
 
 
         
         
         <span class="lastft"></span>
-        <%include main_js%>
+        <?php include_once('main_js.php') ?>
     </body>
 </html>
