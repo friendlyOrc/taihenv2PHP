@@ -11,7 +11,7 @@
     foreach($_DATA['articles'] as $ar){
         $raw1 = mysqli_query($connect, 'SELECT * FROM ar_cat INNER JOIN category ON category.cat_ID = ar_cat.cat_ID WHERE ar_cat.ar_ID = '.$ar['ar_ID']);
         $_DATA['cate'][$ar['ar_ID']] = mysqli_fetch_array($raw1);
-        $_DATA['chapters'][$ar['ar_ID']] = mysqli_query($connect, 'SELECT * from chapter WHERE chapter.ar_ID = '.$ar['ar_ID'].' ORDER BY chapter.chap_ID DESC');
+        $_DATA['chapters'][$ar['ar_ID']] = mysqli_fetch_array(mysqli_query($connect, 'SELECT * from chapter WHERE chapter.ar_ID = '.$ar['ar_ID'].' ORDER BY chapter.chap_ID DESC'));
     }
     
     $_DATA['category'] = Array();

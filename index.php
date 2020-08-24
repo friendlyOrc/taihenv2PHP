@@ -283,12 +283,12 @@
 
           <div class="carousel__mobile__item__inf">
               <div class="carousel__mobile__item__inf__title">
-                  <a href="article.php?ar_ID=<?php echo $_DATA['hot_articles'][$i]['ar_ID']; ?>" title="<?php echo $_DATA['hot_articles'][$i]['ar_name']; ?>">
+                  <a href="article.php?ar_ID=<?php echo $_DATA['hot_articles'][0]['ar_ID']; ?>" title="<?php echo $_DATA['hot_articles'][$i]['ar_name']; ?>">
                     <h4 class="carousel__mobile__item__inf__title">
-                    <?php if(strlen($_DATA['hot_articles'][$i]['ar_name']) > 34){?>
+                    <?php if(strlen($_DATA['hot_articles'][0]['ar_name']) > 34){?>
                           <?php echo substr($_DATA['hot_articles'][$i]['ar_name'], 0, 34);?>...
                         <?php }else{?>
-                          <?php echo $_DATA['hot_articles'][$i]['ar_name'];?>      
+                          <?php echo $_DATA['hot_articles'][0]['ar_name'];?>      
                         <?php }?>  
                       <br>
                         
@@ -298,7 +298,7 @@
               <div class="carousel__mobile__item__inf__badge">
                 HOT
               </div>
-              <a href="chapter.php?ar_ID=<?php echo $_DATA['hot_articles'][$i]['ar_ID']; ?>&chap_ID=1" class="carousel__mobile__item__inf__btn"><span>ĐỌC NGAY</span></a>
+              <a href="chapter.php?ar_ID=<?php echo $_DATA['hot_articles'][0]['ar_ID']; ?>&chap_ID=1" class="carousel__mobile__item__inf__btn"><span>ĐỌC NGAY</span></a>
           </div>
 
           <div class="carousel__mobile__subtitle">
@@ -311,7 +311,7 @@
           <div id="owl__bow" class="owl-carousel BOW">
             <?php foreach($_DATA['hot_articles'] as $ar){?>
               <div class="BOW__item">
-                <a href="article.php?ar_ID=<?php echo $_DATA['hot_articles'][$i]['ar_ID']; ?>" title="<?php echo $_DATA['hot_articles'][$i]['ar_name']; ?>"><img src="public/images/article/<?php echo $_DATA['hot_articles'][$i]['ar_pic']; ?>" alt="" ></a>
+                <a href="article.php?ar_ID=<?php echo $ar['ar_ID']; ?>" title="<?php echo $ar['ar_name']; ?>"><img src="public/images/article/<?php echo $ar['ar_pic']; ?>" alt="" ></a>
               </div>
             <?php }?>
           </div>
@@ -328,27 +328,33 @@
                       $limit = count($_DATA['top_articles']);
                     }
                     for($i = 0; $i < $limit; $i++){?>
-                    <a href="article.php?ar_ID=<?php echo $_DATA['hot_articles'][$i]['ar_ID']; ?>" class="topview__slider__item">
-                        <div class="topview__slider__item__img">
-                            <img src="public/images/article/<?php echo $_DATA['hot_articles'][$i]['ar_pic']; ?>" alt="" >
-                        </div>
-                        
-                        <div class="topview__slider__item__inf">
-                            <h3 class="topview__slider__item__inf__title">
-                            <?php if(strlen($_DATA['top_articles'][$i]['ar_name']) > 10){?>
-                                <?php echo substr($_DATA['top_articles'][$i]['ar_name'], 0, 10);?>...
-                              <?php }else{?>
-                                <?php echo $_DATA['top_articles'][$i]['ar_name'];?>      
-                              <?php }?>      
-                            </h3>
-                            <p class="topview__slider__item__inf__time">
+                      <a href="article.php?ar_ID=<?php echo $_DATA['top_articles'][$i]['ar_ID']; ?>" class="topview__slider__item">
+                          <div class="topview__slider__item__img">
+                              <img src="public/images/article/<?php echo $_DATA['top_articles'][$i]['ar_pic']; ?>" alt="" >
+                          </div>
+                          
+                          <div class="topview__slider__item__inf">
+                              <h3 class="topview__slider__item__inf__title">
                               <?php 
-                                list($month, $day, $year) = split('[/.-]', $_DATA['top_articles'][$i]['ar_date']);
-                                echo "$day - $month - $year";  
-                              ?>
-                            </p>
-                        </div>
-                    </a>
+                                if(strlen($_DATA['top_articles'][$i]['ar_name']) > 10){
+                                    echo substr($_DATA['top_articles'][$i]['ar_name'], 0, 10);?>...
+                              <?php
+                                  }else{
+                                    echo $_DATA['top_articles'][$i]['ar_name'];     
+                                  }
+                                ?>      
+                              </h3>
+                              <p class="topview__slider__item__inf__time">
+                                <?php 
+                                  $datetime = new DateTime($_DATA['top_articles'][$i]['ar_date']);
+
+                                  $date = $datetime->format('d-m-Y');
+                                  // list($month, $day, $year) = explode('[/.-]', $_DATA['top_articles'][$i]['ar_date']);
+                                  echo $date;  
+                                ?>
+                              </p>
+                          </div>
+                      </a>
                     <?php }?>
                 </div>
             </div>
@@ -361,46 +367,55 @@
                         <h2 class="newar__mobile__title">New Releases</h2>
                         
                         <div class="newar__mobile__slider__wrapper">
-                          <%for(let j = 0; j < 3; j++){%>
+                          <?php for($j = 0; $j < 3; $j++){?>
                             <div class="newar__mobile__slider">
-                              <%for(let i = j*2; i < j*2 + 2; i++){%>
+                              <?php for($i = $j*2; $i < $j*2 + 2; $i++){?>
                                     <div class="newar__mobile__slider__item">
                                         <div class="newar__mobile__slider__item__img">
-                                            <a href="/article/<%= sess.articles[i].ar_ID%>" title="<%= sess.articles[i].ar_name%>"><img src="/images/article/<%= sess.articles[i].ar_pic%>" alt=""></a>
-                                            <span class="newar__mobile__slider__item__img__chap"><%= sess.chapters[i][0].chap_name%></span>
+                                            <a href="article.php?ar_ID=<?php echo $_DATA['articles'][$i]['ar_ID']; ?>" title="<?php echo $_DATA['articles'][$i]['ar_name']; ?>"><img src="public/images/article/<?php echo $_DATA['articles'][$i]['ar_pic']; ?>" alt=""></a>
+                                            <span class="newar__mobile__slider__item__img__chap"><?php echo $_DATA['chapters'][(int)$_DATA['articles'][$i]['ar_ID']]['chap_name']; ?></span>
                                         </div>
                                         
                                         <div class="newar__mobile__slider__item__inf">
-                                            <a href="/article/<%= sess.articles[i].ar_ID%>" title="<%= sess.articles[i].ar_name%>">
+                                            <a href="article.php?ar_ID=<?php echo $_DATA['articles'][$i]['ar_ID']; ?>" title="<?php echo $_DATA['articles'][$i]['ar_name']; ?>">
                                                 <h4 class="newar__mobile__slider__item__inf__title" style="white-space: 2;">
-                                                  <% if(sess.articles[i].ar_name.length > 19){%>
-                                                    <%= sess.articles[i].ar_name.substring(0, 19)%>...
-                                                  <%}else{%>
-                                                    <%= sess.articles[i].ar_name%>      
-                                                  <%}%> 
+                                                <?php 
+                                                  if(strlen($_DATA['articles'][$i]['ar_name']) > 19){
+                                                      echo substr($_DATA['articles'][$i]['ar_name'], 0, 19);?>...
+                                                <?php
+                                                    }else{
+                                                      echo $_DATA['articles'][$i]['ar_name'];     
+                                                    }
+                                                  ?>    
                                                 </h4>
                                                 
                                                 <p class="newar__mobile__slider__item__inf__time">
-                                                  <% let arr = sess.top_articles[i].ar_date.split('-')%>
-                                                  <%= arr[2] + "-" + arr[1] + "-" + arr[0]%>
+                                                <?php 
+                                                  $datetime = new DateTime($_DATA['articles'][$i]['ar_date']);
+
+                                                  $date = $datetime->format('d-m-Y');
+                                                  // list($month, $day, $year) = explode('[/.-]', $_DATA['top_articles'][$i]['ar_date']);
+                                                  echo $date;  
+                                                ?>
                                                 </p>
                                               </a>
                                             
                                         </div>
                                     </div>
-                              <%}%>
+                              <?php }?>
                             </div>
-                          <%}%>
+                          <?php }?>
                           <div class="newar__mobile__morebtn">
                             <a href="/article_list/0"><span>XEM THÊM</span></a>
                           </div>
                         </div>
+                        
                     </div>
                 </div>
             </div>
           </div>
           
-          <%include footer%>
+          <?php include_once('footer.php');?>
         </div>
         
 
