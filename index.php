@@ -406,7 +406,7 @@
                             </div>
                           <?php }?>
                           <div class="newar__mobile__morebtn">
-                            <a href="/article_list/0"><span>XEM THÊM</span></a>
+                            <a href="article_list.php?tag=all"><span>XEM THÊM</span></a>
                           </div>
                         </div>
                         
@@ -428,27 +428,39 @@
                             <h2 class="topview__title">TOP view</h2>
                             <div id="topviewtab" class="carousel slide" data-ride="carousel">
                                         <div id="owl__one"class="owl-carousel topview__slider">
-                                          <%for(let i = 0; i < ((sess.top_articles.length >= 12)? 12 : sess.top_articles.length); i++){%>
-                                            <a href="/article/<%= sess.top_articles[i].ar_ID%>" class="topview__slider__item">
+                                          <?php 
+                                          $limit = 12;
+                                          if(count($_DATA['top_articles']) < 12){
+                                            $limit = count($_DATA['top_articles']);
+                                          } 
+                                          for($i = 0; $i < $limit; $i++){?>
+                                            <a href="article.php?ar_ID=<?php echo $_DATA['articles'][$i]['ar_ID']; ?>" class="topview__slider__item">
                                                 <div class="topview__slider__item__img">
-                                                    <img src="/images/article/<%= sess.top_articles[i].ar_pic%>" alt="" >
+                                                    <img src="public/images/article/<?php echo $_DATA['top_articles'][$i]['ar_pic']; ?>" alt="" >
                                                 </div>
                                                 
                                                 <div class="topview__slider__item__inf">
                                                     <h3 class="topview__slider__item__inf__title">
-                                                      <% if(sess.top_articles[i].ar_name.length > 18){%>
-                                                        <%= sess.top_articles[i].ar_name.substring(0, 18)%>...
-                                                      <%}else{%>
-                                                        <%= sess.top_articles[i].ar_name%>      
-                                                      <%}%>     
+                                                    <?php 
+                                                      if(strlen($_DATA['top_articles'][$i]['ar_name']) > 19){
+                                                          echo substr($_DATA['top_articles'][$i]['ar_name'], 0, 19);?>...
+                                                    <?php
+                                                        }else{
+                                                          echo $_DATA['top_articles'][$i]['ar_name'];     
+                                                        }
+                                                      ?>     
                                                     </h3>
                                                     <p class="topview__slider__item__inf__time">
-                                                      <% let arr = sess.top_articles[i].ar_date.split('-')%>
-                                                      <%= arr[2] + "-" + arr[1] + "-" + arr[0]%>
+                                                    <?php 
+                                                      $datetime = new DateTime($_DATA['top_articles'][$i]['ar_date']);
+
+                                                      $date = $datetime->format('d-m-Y');
+                                                      echo $date;  
+                                                    ?>
                                                       </p>
                                                 </div>
                                             </a>
-                                            <%}%>
+                                            <?php }?>
                                 </div>
                     
                                 <a class="tv-prev carousel-control-prev">
@@ -474,25 +486,28 @@
                                 <h2 class="newar__title">New Releases</h2>
                                 
                                 <div class="newar__slider__wrapper">
-                                  <%for(let j = 0; j < 3; j++){%>
+                                  <?php for($j = 0; $j < 3; $j++){?>
                                     <div class="newar__slider">
-                                      <%for(let i = j*2; i < j*2 + 2; i++){%>
+                                      <?php for($i = $j*2; $i < $j*2 + 2; $i++){?>
                                             <div class="newar__slider__item">
                                                 <div class="newar__slider__item__img">
-                                                    <a href="/article/<%= sess.articles[i].ar_ID%>" title="<%= sess.articles[i].ar_name%>"><img src="/images/article/<%= sess.articles[i].ar_pic%>" alt=""></a>
+                                                    <a href="article.php?ar_ID=<?php echo $_DATA['articles'][$i]['ar_ID']; ?>" title="<?php echo $_DATA['articles'][$i]['ar_name']; ?>"><img src="public/images/article/<?php echo $_DATA['articles'][$i]['ar_pic']; ?>" alt=""></a>
                                                 </div>
                                                 
                                                 <div class="newar__slider__item__inf">
                                                   <table class="newar__slider__item__inf__tbl">
                                                     <tr class="newar__slider__item__inf__tbl__title">
                                                       <td>
-                                                        <a href="/article/<%= sess.articles[i].ar_ID%>" title="<%= sess.articles[i].ar_name%>">
+                                                        <a href="article.php?ar_ID=<?php echo $_DATA['articles'][$i]['ar_ID']; ?>" title="<?php echo $_DATA['articles'][$i]['ar_name']; ?>">
                                                           <h4 class="newar__slider__item__inf__title">
-                                                            <% if(sess.articles[i].ar_name.length > 33){%>
-                                                              <%= sess.articles[i].ar_name.substring(0, 33)%>...
-                                                            <%}else{%>
-                                                              <%= sess.articles[i].ar_name%>      
-                                                            <%}%> 
+                                                          <?php 
+                                                            if(strlen($_DATA['articles'][$i]['ar_name']) > 33){
+                                                                echo substr($_DATA['articles'][$i]['ar_name'], 0, 33);?>...
+                                                          <?php
+                                                              }else{
+                                                                echo $_DATA['articles'][$i]['ar_name'];     
+                                                              }
+                                                            ?>    
                                                           </h4>
                                                           
                                                         </a>
@@ -500,33 +515,36 @@
                                                     </tr>
                                                     <tr class="newar__slider__item__inf__tbl__chap">
                                                       <td>
-                                                        <span class="newar__slider__item__inf__chap"><%= sess.chapters[i][0].chap_name%></span>
+                                                        <span class="newar__slider__item__inf__chap"><?php echo $_DATA['chapters'][$_DATA['articles'][$i]['ar_ID']]['chap_name']; ?></span>
                                                       </td>
                                                     </tr>
                                                     <tr class="newar__slider__item__inf__tbl__des">
                                                       <td>
                                                         <p class="newar__slider__item__inf__des">
-                                                          <% if(sess.articles[i].ar_des.length > 120){%>
-                                                            <%= sess.articles[i].ar_des.substring(0, 120)%>...
-                                                          <%}else{%>
-                                                            <%= sess.articles[i].ar_des%>      
-                                                          <%}%>  
+                                                        <?php 
+                                                            if(strlen($_DATA['articles'][$i]['ar_des']) > 120){
+                                                                echo substr($_DATA['articles'][$i]['ar_des'], 0, 120);?>...
+                                                          <?php
+                                                              }else{
+                                                                echo $_DATA['articles'][$i]['ar_des'];     
+                                                              }
+                                                            ?>  
                                                         </p>
                                                       </td>
                                                     </tr>
                                                     <tr class="newar__slider__item__inf__tbl__btn">
                                                       <td>
-                                                        <a href="/article/<%= sess.articles[i].ar_ID%>" class="newar__slider__item__inf__btn"><span>ĐỌC NGAY</span></a>
+                                                        <a href="article.php?ar_ID=<?php echo $_DATA['articles'][$i]['ar_ID']; ?>" class="newar__slider__item__inf__btn"><span>ĐỌC NGAY</span></a>
                                                       </td>
                                                     </tr>
                                                   </table>
                                                 </div>
                                             </div>
-                                      <%}%>
+                                      <?php }?>
                                     </div>
-                                  <%}%>
+                                  <?php }?>
                                   <div class="newar__morebtn">
-                                    <a href="/article_list/0"><span>XEM THÊM</span></a>
+                                    <a href="article_list.php?tag=all"><span>XEM THÊM</span></a>
                                   </div>
                                     
                                 </div>
@@ -538,7 +556,7 @@
             </div>
 
             <!-- FOOTER  -->
-            <?php include_once('footer') ?>
+            <?php include_once('footer.php') ?>
         </div>
 
 

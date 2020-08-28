@@ -57,7 +57,7 @@
             </ul>
         </div>
         <div class="col-3" style="text-align: right; padding: 0 !important;">
-            <form action="/search" method="POST" class="nav__search d-flex justify-content-between">
+            <form action="search.php" method="POST" class="nav__search d-flex justify-content-between">
                 <input type="text" class="nav__search__input" placeholder="Tìm kiếm" name="search">
                 <button class="nav__search__button" type="submit"><i class="fas fa-search"></i></button>
             </form>
@@ -73,7 +73,7 @@
 
     </div>
     <div class="nav__search__mobile block--disable">
-        <form action="/search" method="POST" class="nav__search__mobile__form d-flex justify-content-between">
+        <form action="search.php" method="POST" class="nav__search__mobile__form d-flex justify-content-between">
             <input type="text" class="nav__search__mobile__input" placeholder="Tìm kiếm" name="search">
             <button class="nav__search__mobile__button" type="submit"><i class="fas fa-search"></i></button>
         </form>
@@ -124,7 +124,7 @@
 
     </div>
     <div class="nav__search__mobile block--disable">
-        <form action="/search" method="POST" class="nav__search__mobile__form d-flex justify-content-between">
+        <form action="search.php" method="POST" class="nav__search__mobile__form d-flex justify-content-between">
             <input type="text" class="nav__search__mobile__input" placeholder="Tìm kiếm" name="search">
             <button class="nav__search__mobile__button" type="submit"><i class="fas fa-search"></i></button>
         </form>
